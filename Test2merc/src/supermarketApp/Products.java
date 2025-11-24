@@ -180,13 +180,13 @@ public class Products {
 	    } else if (productName.contains("aceite")) {
 	        return "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400";
 	    } else if (productName.contains("cereales")) {
-	        return "https://images.unsplash.com/photo-1517686748822-45d53e5f2a64?w=400";
+	        return "https://www.dia.es/product_images/74305/74305_ISO_0_ES.jpg";
 	    } else if (productName.contains("detergente")) {
 	        return "https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400";
 	    } else if (productName.contains("pasta") || productName.contains("espagueti")) {
 	        return "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400";
 	    } else if (productName.contains("chocolate")) {
-	        return "https://images.unsplash.com/photo-1511381939415-e44015466834?w=400";
+	        return "https://elavegan.com/wp-content/uploads/2023/01/homemade-chocolate-bars.jpg";
 	    } else if (productName.contains("café")) {
 	        return "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400";
 	    } else if (productName.contains("queso")) {
