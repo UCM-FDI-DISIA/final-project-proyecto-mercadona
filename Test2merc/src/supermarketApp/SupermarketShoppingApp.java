@@ -1,7 +1,11 @@
 package supermarketApp;
 
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import supermarketApp.SupermarketShoppingApp.Product;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -11,12 +15,13 @@ public class SupermarketShoppingApp extends JFrame {
     private JPanel mainPanel;
     private JPanel contentPanel;
     private JPanel topBar;
+    private Products products = new Products(this, this.searchField);;
+    private List<Product> allProducts = new ArrayList<>();
     
     private JTextField searchField;
     private JButton searchButton, cartButton, homeButton;
     private JLabel cartCountLabel;
-    
-    private List<Product> allProducts;
+
     private Map<Product, Integer> cart = new HashMap<>();
     
     private JComboBox<String> supermarketFilter, brandFilter, categoryFilter;
@@ -26,8 +31,7 @@ public class SupermarketShoppingApp extends JFrame {
         setSize(900, 650);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        
-        initializeProducts();
+        products.initializeProducts(allProducts);
         
         mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.WHITE);
@@ -37,37 +41,17 @@ public class SupermarketShoppingApp extends JFrame {
         buildHomeContent();
     }
     
-    private void initializeProducts() {
-        allProducts = new ArrayList<>();
+    public void checkComponentPanel(JPanel productsPanel){
+    	JScrollPane scrollPane = new JScrollPane(productsPanel);
+        scrollPane.setBorder(null);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         
-        // Mercadona - Hacendado
-        allProducts.add(new Product("Leche Entera Hacendado", "Mercadona", "Hacendado", "Lácteos", 0.95, 50));
-        allProducts.add(new Product("Pan de Molde Hacendado", "Mercadona", "Hacendado", "Panadería", 0.85, 30));
-        allProducts.add(new Product("Yogur Natural Hacendado", "Mercadona", "Hacendado", "Lácteos", 1.20, 40));
-        allProducts.add(new Product("Galletas María Hacendado", "Mercadona", "Hacendado", "Dulces", 0.75, 60));
-        allProducts.add(new Product("Aceite de Oliva Hacendado", "Mercadona", "Hacendado", "Aceites", 3.50, 25));
-        
-        // Día
-        allProducts.add(new Product("Leche Semidesnatada Día", "Día", "Día", "Lácteos", 0.89, 45));
-        allProducts.add(new Product("Cereales Chocolate Día", "Día", "Día", "Desayuno", 2.10, 35));
-        allProducts.add(new Product("Detergente Lavadora Día", "Día", "Día", "Limpieza", 4.50, 20));
-        allProducts.add(new Product("Pasta Espagueti Día", "Día", "Día", "Pasta", 0.65, 55));
-        
-        // Lidl
-        allProducts.add(new Product("Chocolate Negro Lidl", "Lidl", "Lidl", "Dulces", 1.29, 40));
-        allProducts.add(new Product("Café Molido Lidl", "Lidl", "Lidl", "Café", 2.99, 30));
-        allProducts.add(new Product("Queso Gouda Lidl", "Lidl", "Lidl", "Lácteos", 1.85, 28));
-        
-        // Marcas comunes en varios supermercados
-        allProducts.add(new Product("Yogur Danone Natural", "Mercadona", "Danone", "Lácteos", 2.40, 50));
-        allProducts.add(new Product("Yogur Danone Natural", "Día", "Danone", "Lácteos", 2.35, 45));
-        allProducts.add(new Product("Yogur Danone Natural", "Lidl", "Danone", "Lácteos", 2.30, 40));
-        
-        allProducts.add(new Product("Cola Cao Original", "Mercadona", "Cola Cao", "Desayuno", 3.20, 35));
-        allProducts.add(new Product("Cola Cao Original", "Día", "Cola Cao", "Desayuno", 3.15, 30));
-        
-        allProducts.add(new Product("Detergente Ariel", "Mercadona", "Ariel", "Limpieza", 8.50, 22));
-        allProducts.add(new Product("Detergente Ariel", "Lidl", "Ariel", "Limpieza", 8.30, 18));
+    	if (contentPanel.getComponentCount() > 1) {
+            contentPanel.remove(1);
+        }
+        contentPanel.add(scrollPane, BorderLayout.CENTER);
+        contentPanel.revalidate();
+        contentPanel.repaint();
     }
     
     private void buildTopBar() {
@@ -91,7 +75,7 @@ public class SupermarketShoppingApp extends JFrame {
         searchButton = new JButton("🔍 Buscar");
         searchButton.setBackground(Color.WHITE);
         searchButton.setFocusPainted(false);
-        searchButton.addActionListener(e -> searchProducts());
+        searchButton.addActionListener(e -> products.searchProducts(allProducts));
         centerPanel.add(new JLabel("Buscar: "));
         centerPanel.add(searchField);
         centerPanel.add(searchButton);
@@ -148,98 +132,14 @@ public class SupermarketShoppingApp extends JFrame {
         contentPanel.add(filterPanel, BorderLayout.NORTH);
         
         // Productos
-        displayProducts(allProducts);
+        products.displayProducts(allProducts);
         
         mainPanel.add(contentPanel, BorderLayout.CENTER);
         mainPanel.revalidate();
         mainPanel.repaint();
     }
-    
-    private void displayProducts(List<Product> products) {
-        JPanel productsPanel = new JPanel(new GridLayout(0, 3, 15, 15));
-        productsPanel.setBackground(Color.WHITE);
-        
-        if (products.isEmpty()) {
-            JLabel noProducts = new JLabel("No se encontraron productos");
-            noProducts.setFont(new Font("Arial", Font.BOLD, 16));
-            noProducts.setHorizontalAlignment(SwingConstants.CENTER);
-            productsPanel.add(noProducts);
-        } else {
-            for (Product p : products) {
-                productsPanel.add(createProductCard(p));
-            }
-        }
-        
-        JScrollPane scrollPane = new JScrollPane(productsPanel);
-        scrollPane.setBorder(null);
-        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-        
-        if (contentPanel.getComponentCount() > 1) {
-            contentPanel.remove(1);
-        }
-        contentPanel.add(scrollPane, BorderLayout.CENTER);
-        contentPanel.revalidate();
-        contentPanel.repaint();
-    }
-    
-    private JPanel createProductCard(Product p) {
-        JPanel card = new JPanel(new BorderLayout(5, 5));
-        card.setBackground(new Color(250, 250, 250));
-        card.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(200, 200, 200)),
-            new EmptyBorder(10, 10, 10, 10)
-        ));
-        
-        // Información del producto
-        JPanel infoPanel = new JPanel();
-        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
-        infoPanel.setBackground(new Color(250, 250, 250));
-        
-        JLabel nameLabel = new JLabel("<html><b>" + p.name + "</b></html>");
-        nameLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        
-        JLabel supermarketLabel = new JLabel(p.supermarket);
-        supermarketLabel.setFont(new Font("Arial", Font.PLAIN, 11));
-        supermarketLabel.setForeground(Color.GRAY);
-        
-        JLabel brandLabel = new JLabel("Marca: " + p.brand);
-        brandLabel.setFont(new Font("Arial", Font.PLAIN, 11));
-        
-        JLabel categoryLabel = new JLabel("Categoría: " + p.category);
-        categoryLabel.setFont(new Font("Arial", Font.PLAIN, 11));
-        
-        JLabel priceLabel = new JLabel(String.format("%.2f€", p.price));
-        priceLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        priceLabel.setForeground(new Color(0, 120, 0));
-        
-        JLabel stockLabel = new JLabel(p.stock > 0 ? "Stock: " + p.stock : "Sin stock");
-        stockLabel.setFont(new Font("Arial", Font.PLAIN, 10));
-        stockLabel.setForeground(p.stock > 0 ? Color.BLACK : Color.RED);
-        
-        infoPanel.add(nameLabel);
-        infoPanel.add(Box.createVerticalStrut(5));
-        infoPanel.add(supermarketLabel);
-        infoPanel.add(brandLabel);
-        infoPanel.add(categoryLabel);
-        infoPanel.add(Box.createVerticalStrut(5));
-        infoPanel.add(priceLabel);
-        infoPanel.add(stockLabel);
-        
-        // Botón añadir
-        JButton addButton = new JButton("Añadir al carrito");
-        addButton.setBackground(new Color(0, 150, 0));
-        addButton.setForeground(Color.WHITE);
-        addButton.setFocusPainted(false);
-        addButton.setEnabled(p.stock > 0);
-        addButton.addActionListener(e -> addToCart(p));
-        
-        card.add(infoPanel, BorderLayout.CENTER);
-        card.add(addButton, BorderLayout.SOUTH);
-        
-        return card;
-    }
-    
-    private void addToCart(Product p) {
+
+    public void addToCart(Product p) {
         if (p.stock <= 0) {
             JOptionPane.showMessageDialog(this, "Producto sin stock", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -274,32 +174,7 @@ public class SupermarketShoppingApp extends JFrame {
             if (matches) filtered.add(p);
         }
         
-        displayProducts(filtered);
-    }
-    
-    private void searchProducts() {
-        String query = searchField.getText().trim().toLowerCase();
-        if (query.isEmpty()) {
-            displayProducts(allProducts);
-            return;
-        }
-        
-        List<Product> results = new ArrayList<>();
-        for (Product p : allProducts) {
-            if (p.name.toLowerCase().contains(query) || 
-                p.brand.toLowerCase().contains(query) ||
-                p.category.toLowerCase().contains(query)) {
-                results.add(p);
-            }
-        }
-        
-        if (results.isEmpty()) {
-            JOptionPane.showMessageDialog(this, 
-                "No se encontraron productos que coincidan con: " + query, 
-                "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
-        }
-        
-        displayProducts(results);
+        products.displayProducts(filtered);
     }
     
     private void showCart() {

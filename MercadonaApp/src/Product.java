@@ -12,4 +12,6 @@ class Product {
     public String getName() { return name; }
     public double getPrice() { return price; }
     public String getImageUrl() { return imageUrl; }
+    
+    
 }
