@@ -397,6 +397,58 @@ public class SupermarketShoppingApp extends JFrame {
             String paymentMethod = cardRadio.isSelected() ? "Tarjeta" :
                                  transferRadio.isSelected() ? "Transferencia" :
                                  bizumRadio.isSelected() ? "Bizum" : "PayPal";
+
+			//Ask for additional payment info based on selection
+			String extraInfo = "";
+			
+			if (paymentMethod.equals("Tarjeta")) {
+			JTextField cardNum = new JTextField();
+			JTextField exp = new JTextField();
+			JTextField cvv = new JTextField();
+			
+			Object[] fields = {
+			   "Número de tarjeta:", cardNum,
+			   "Fecha de expiración (MM/YY):", exp,
+			   "CVV:", cvv
+			};
+			
+			int result = JOptionPane.showConfirmDialog(this, fields,
+			       "Datos de Tarjeta", JOptionPane.OK_CANCEL_OPTION);
+			
+			if (result != JOptionPane.OK_OPTION) return;
+			
+			extraInfo = "Tarjeta terminada en " +
+			           cardNum.getText().substring(cardNum.getText().length() - 4);
+			}
+			
+			else if (paymentMethod.equals("Transferencia")) {
+			String iban = JOptionPane.showInputDialog(this,
+			       "Introduce tu número de cuenta / IBAN:");
+			
+			if (iban == null || iban.isEmpty()) return;
+			
+			extraInfo = "IBAN: " + iban;
+			}
+			
+			else if (paymentMethod.equals("Bizum")) {
+			String bizumNum = JOptionPane.showInputDialog(this,
+			       "Número de teléfono para Bizum:");
+			
+			if (bizumNum == null || bizumNum.isEmpty()) return;
+			
+			extraInfo = "Bizum enviado a: " + bizumNum;
+			}
+			
+			else if (paymentMethod.equals("PayPal")) {
+			try {
+			   Desktop.getDesktop().browse(new java.net.URI("https://www.paypal.com"));
+			} catch (Exception ex) {
+			   JOptionPane.showMessageDialog(this, "No se pudo abrir PayPal",
+			           "Error", JOptionPane.ERROR_MESSAGE);
+			   return;
+			}
+			extraInfo = "Pago vía PayPal";
+			}
             
             completePurchase(email, paymentMethod, total);
         });
