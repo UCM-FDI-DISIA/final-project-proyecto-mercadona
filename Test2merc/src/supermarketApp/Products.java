@@ -66,6 +66,49 @@ public class Products {
         
         allProducts.add(new Product("Detergente Ariel", "Mercadona", "Ariel", "Limpieza", 8.50, 22));
         allProducts.add(new Product("Detergente Ariel", "Lidl", "Ariel", "Limpieza", 8.30, 18));
+        
+        
+     // Pasta, Arroz y Legumbres
+        allProducts.add(new Product("Espaguetis 500g", "Mercadona", "Gallo", "Pasta", 1.10, 300));
+        allProducts.add(new Product("Arroz Basmati 1kg", "Lidl", "Brillante", "Arroz", 2.45, 180));
+        allProducts.add(new Product("Lentejas 500g", "Carrefour", "Carrefour", "Legumbres", 1.25, 150));
+        allProducts.add(new Product("Macarrones 500g", "Alcampo", "Barilla", "Pasta", 1.35, 200));
+        allProducts.add(new Product("Garbanzos Cocidos 400g", "Mercadona", "Hacendado", "Legumbres", 0.85, 220));
+
+        // Aceites y Condimentos
+        allProducts.add(new Product("Aceite de Oliva Virgen Extra 1L", "Mercadona", "Hacendado", "Aceites", 4.99, 140));
+        allProducts.add(new Product("Vinagre de Vino 500ml", "Carrefour", "Carrefour", "Condimentos", 0.95, 100));
+        allProducts.add(new Product("Sal Marina 1kg", "Lidl", "Alipende", "Condimentos", 0.45, 280));
+        allProducts.add(new Product("Mayonesa 450ml", "Alcampo", "Hellmanns", "Condimentos", 2.35, 120));
+        allProducts.add(new Product("Ketchup 560g", "Mercadona", "Heinz", "Condimentos", 2.15, 150));
+
+        // Bebidas
+        allProducts.add(new Product("Agua Mineral 1.5L Pack 6", "Carrefour", "Font Vella", "Bebidas", 2.10, 400));
+        allProducts.add(new Product("Coca Cola 2L", "Mercadona", "Coca Cola", "Refrescos", 1.85, 300));
+        allProducts.add(new Product("Zumo de Naranja 1L", "Lidl", "Don Simon", "Zumos", 1.45, 180));
+        allProducts.add(new Product("Cerveza Pack 6", "Alcampo", "Mahou", "Alcohol", 3.99, 250));
+        allProducts.add(new Product("Vino Tinto Crianza", "Carrefour", "Marqués de Cáceres", "Alcohol", 6.50, 90));
+
+        // Snacks y Dulces
+        allProducts.add(new Product("Patatas Fritas 150g", "Mercadona", "Lays", "Snacks", 1.75, 200));
+        allProducts.add(new Product("Chocolate con Leche 100g", "Lidl", "Milka", "Dulces", 1.20, 180));
+        allProducts.add(new Product("Galletas María 800g", "Carrefour", "Fontaneda", "Dulces", 1.99, 150));
+        allProducts.add(new Product("Frutos Secos Mixtos 200g", "Alcampo", "Hacendado", "Snacks", 2.85, 120));
+        allProducts.add(new Product("Chocolate Negro 70% 100g", "Mercadona", "Nestlé", "Dulces", 1.65, 140));
+
+        // Congelados
+        allProducts.add(new Product("Pizza 4 Quesos", "Lidl", "Dr. Oetker", "Congelados", 3.45, 100));
+        allProducts.add(new Product("Guisantes Congelados 1kg", "Carrefour", "Carrefour", "Congelados", 1.89, 160));
+        allProducts.add(new Product("Helado de Vainilla 900ml", "Mercadona", "Häagen-Dazs", "Congelados", 4.99, 80));
+        allProducts.add(new Product("Lasaña Boloñesa 400g", "Alcampo", "Findus", "Congelados", 3.25, 90));
+        allProducts.add(new Product("Croquetas Jamón 500g", "Lidl", "La Cocinera", "Congelados", 2.99, 110));
+
+        // Limpieza y Hogar
+        allProducts.add(new Product("Detergente Líquido 40 lavados", "Mercadona", "Deliplus", "Limpieza", 5.95, 120));
+        allProducts.add(new Product("Suavizante 1.5L", "Carrefour", "Vernel", "Limpieza", 2.45, 140));
+        allProducts.add(new Product("Lavavajillas 650ml", "Lidl", "Fairy", "Limpieza", 1.85, 180));
+        allProducts.add(new Product("Papel Higiénico 12 rollos", "Alcampo", "Scottex", "Hogar", 4.50, 200));
+        allProducts.add(new Product("Servilletas Pack 100", "Mercadona", "Hacendado", "Hogar", 0.95, 250));
     }
 	
 	public void displayProducts(List<Product> products) {
