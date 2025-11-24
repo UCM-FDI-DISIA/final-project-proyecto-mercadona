@@ -10,6 +10,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.util.List;
+import java.awt.image.BufferedImage;
+import java.net.URL;
+import javax.imageio.ImageIO;
 
 public class SupermarketShoppingApp extends JFrame {
     private JPanel mainPanel;

@@ -18,6 +18,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import java.awt.image.BufferedImage;
+import java.net.URI;
+import javax.imageio.ImageIO;
+import java.awt.Dimension;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 import supermarketApp.SupermarketShoppingApp.*;
 
@@ -81,61 +87,131 @@ public class Products {
     }
 	
 	public JPanel createProductCard(Product p) {
-        JPanel card = new JPanel(new BorderLayout(5, 5));
-        card.setBackground(new Color(250, 250, 250));
-        card.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(200, 200, 200)),
-            new EmptyBorder(10, 10, 10, 10)
-        ));
-        
-        // Información del producto
-        JPanel infoPanel = new JPanel();
-        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
-        infoPanel.setBackground(new Color(250, 250, 250));
-        
-        JLabel nameLabel = new JLabel("<html><b>" + p.name + "</b></html>");
-        nameLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        
-        JLabel supermarketLabel = new JLabel(p.supermarket);
-        supermarketLabel.setFont(new Font("Arial", Font.PLAIN, 11));
-        supermarketLabel.setForeground(Color.GRAY);
-        
-        JLabel brandLabel = new JLabel("Marca: " + p.brand);
-        brandLabel.setFont(new Font("Arial", Font.PLAIN, 11));
-        
-        JLabel categoryLabel = new JLabel("Categoría: " + p.category);
-        categoryLabel.setFont(new Font("Arial", Font.PLAIN, 11));
-        
-        JLabel priceLabel = new JLabel(String.format("%.2f€", p.price));
-        priceLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        priceLabel.setForeground(new Color(0, 120, 0));
-        
-        JLabel stockLabel = new JLabel(p.stock > 0 ? "Stock: " + p.stock : "Sin stock");
-        stockLabel.setFont(new Font("Arial", Font.PLAIN, 10));
-        stockLabel.setForeground(p.stock > 0 ? Color.BLACK : Color.RED);
-        
-        infoPanel.add(nameLabel);
-        infoPanel.add(Box.createVerticalStrut(5));
-        infoPanel.add(supermarketLabel);
-        infoPanel.add(brandLabel);
-        infoPanel.add(categoryLabel);
-        infoPanel.add(Box.createVerticalStrut(5));
-        infoPanel.add(priceLabel);
-        infoPanel.add(stockLabel);
-        
-        // Botón añadir
-        JButton addButton = new JButton("Añadir al carrito");
-        addButton.setBackground(new Color(0, 150, 0));
-        addButton.setForeground(Color.WHITE);
-        addButton.setFocusPainted(false);
-        addButton.setEnabled(p.stock > 0);
-        addButton.addActionListener(e -> app.addToCart(p));
-        
-        card.add(infoPanel, BorderLayout.CENTER);
-        card.add(addButton, BorderLayout.SOUTH);
-        
-        return card;
-    }
+	    JPanel card = new JPanel(new BorderLayout(5, 5));
+	    card.setBackground(new Color(250, 250, 250));
+	    card.setBorder(BorderFactory.createCompoundBorder(
+	        BorderFactory.createLineBorder(new Color(200, 200, 200)),
+	        new EmptyBorder(10, 10, 10, 10)
+	    ));
+	    
+	    // Panel de imagen del producto
+	    JPanel imagePanel = new JPanel(new BorderLayout());
+	    imagePanel.setPreferredSize(new Dimension(180, 150));
+	    imagePanel.setBackground(Color.WHITE);
+	    imagePanel.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220)));
+	    
+	    try {
+	        // Generar URL de imagen basada en el producto
+	        String imageUrl = getProductImageUrl(p);
+	        URI uri = new URI(imageUrl);
+	        BufferedImage originalImage = ImageIO.read(uri.toURL());
+	        Image scaledImage = originalImage.getScaledInstance(180, 150, Image.SCALE_SMOOTH);
+	        JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
+	        imagePanel.add(imageLabel, BorderLayout.CENTER);
+	    } catch (Exception e) {
+	        // Fallback: mostrar un panel con el icono de la categoría
+	        JLabel placeholderLabel = new JLabel(getCategoryIcon(p.category), SwingConstants.CENTER);
+	        placeholderLabel.setFont(new Font("Arial", Font.PLAIN, 10));
+	        imagePanel.add(placeholderLabel, BorderLayout.CENTER);
+	    }
+	    
+	    // Información del producto
+	    JPanel infoPanel = new JPanel();
+	    infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+	    infoPanel.setBackground(new Color(250, 250, 250));
+	    
+	    JLabel nameLabel = new JLabel("<html><b>" + p.name + "</b></html>");
+	    nameLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+	    
+	    JLabel supermarketLabel = new JLabel(p.supermarket);
+	    supermarketLabel.setFont(new Font("Arial", Font.PLAIN, 11));
+	    supermarketLabel.setForeground(Color.GRAY);
+	    
+	    JLabel brandLabel = new JLabel("Marca: " + p.brand);
+	    brandLabel.setFont(new Font("Arial", Font.PLAIN, 11));
+	    
+	    JLabel categoryLabel = new JLabel("Categoría: " + p.category);
+	    categoryLabel.setFont(new Font("Arial", Font.PLAIN, 11));
+	    
+	    JLabel priceLabel = new JLabel(String.format("%.2f€", p.price));
+	    priceLabel.setFont(new Font("Arial", Font.BOLD, 16));
+	    priceLabel.setForeground(new Color(0, 120, 0));
+	    
+	    JLabel stockLabel = new JLabel(p.stock > 0 ? "Stock: " + p.stock : "Sin stock");
+	    stockLabel.setFont(new Font("Arial", Font.PLAIN, 10));
+	    stockLabel.setForeground(p.stock > 0 ? Color.BLACK : Color.RED);
+	    
+	    infoPanel.add(nameLabel);
+	    infoPanel.add(Box.createVerticalStrut(5));
+	    infoPanel.add(supermarketLabel);
+	    infoPanel.add(brandLabel);
+	    infoPanel.add(categoryLabel);
+	    infoPanel.add(Box.createVerticalStrut(5));
+	    infoPanel.add(priceLabel);
+	    infoPanel.add(stockLabel);
+	    
+	    // Botón añadir
+	    JButton addButton = new JButton("Añadir al carrito");
+	    addButton.setBackground(new Color(0, 150, 0));
+	    addButton.setForeground(Color.WHITE);
+	    addButton.setFocusPainted(false);
+	    addButton.setEnabled(p.stock > 0);
+	    addButton.addActionListener(e -> app.addToCart(p));
+	    
+	    card.add(imagePanel, BorderLayout.NORTH);
+	    card.add(infoPanel, BorderLayout.CENTER);
+	    card.add(addButton, BorderLayout.SOUTH);
+	    
+	    return card;
+	}
+
+	private String getProductImageUrl(Product p) {
+	    // Mapear productos a imágenes reales
+	    String productName = p.name.toLowerCase();
+	    
+	    if (productName.contains("leche")) {
+	        return "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400";
+	    } else if (productName.contains("pan")) {
+	        return "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400";
+	    } else if (productName.contains("yogur")) {
+	        return "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400";
+	    } else if (productName.contains("galletas")) {
+	        return "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400";
+	    } else if (productName.contains("aceite")) {
+	        return "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400";
+	    } else if (productName.contains("cereales")) {
+	        return "https://images.unsplash.com/photo-1517686748822-45d53e5f2a64?w=400";
+	    } else if (productName.contains("detergente")) {
+	        return "https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400";
+	    } else if (productName.contains("pasta") || productName.contains("espagueti")) {
+	        return "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400";
+	    } else if (productName.contains("chocolate")) {
+	        return "https://images.unsplash.com/photo-1511381939415-e44015466834?w=400";
+	    } else if (productName.contains("café")) {
+	        return "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400";
+	    } else if (productName.contains("queso")) {
+	        return "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=400";
+	    } else if (productName.contains("cola cao")) {
+	        return "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=400";
+	    }
+	    
+	    return "https://images.unsplash.com/photo-1534723452862-4c874018d66d?w=400"; // Imagen genérica de supermercado
+	}
+
+	private String getCategoryIcon(String category) {
+	    // Texto de fallback según la categoría
+	    switch (category.toLowerCase()) {
+	        case "lácteos": return "🥛";
+	        case "panadería": return "🍞";
+	        case "dulces": return "🍪";
+	        case "aceites": return "🫒";
+	        case "desayuno": return "☕";
+	        case "limpieza": return "🧼";
+	        case "pasta": return "🍝";
+	        case "café": return "☕";
+	        default: return "🛒";
+	    }
+	}
 	
 	public void searchProducts(List<Product> allProducts) {
         String query = searchField.getText().trim().toLowerCase();
