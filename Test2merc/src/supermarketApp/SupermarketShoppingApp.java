@@ -53,6 +53,7 @@ public class SupermarketShoppingApp extends JFrame {
         products.initializeProducts(allProducts);
         
         mainPanel = new JPanel(new BorderLayout());
+        shoppingCart.setMainPanel(mainPanel);
         mainPanel.setBackground(Color.WHITE);
         add(mainPanel);
         
@@ -108,6 +109,7 @@ public class SupermarketShoppingApp extends JFrame {
         cartButton.setFocusPainted(false);
         cartButton.addActionListener(e -> shoppingCart.showCart(cart));
         cartCountLabel = new JLabel("(0)");
+        shoppingCart.setCartCount(cartCountLabel);
         cartCountLabel.setForeground(Color.WHITE);
         cartCountLabel.setFont(new Font("Arial", Font.BOLD, 14));
         rightPanel.add(cartButton);
@@ -126,6 +128,7 @@ public class SupermarketShoppingApp extends JFrame {
         }
         
         contentPanel = new JPanel(new BorderLayout());
+        shoppingCart.setContentPanel(contentPanel);
         contentPanel.setBackground(Color.WHITE);
         contentPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
         

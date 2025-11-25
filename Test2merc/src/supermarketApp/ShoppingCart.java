@@ -34,6 +34,18 @@ public class ShoppingCart{
 		this.contentPanel = contentPanel;
 		this.app = app;
 	}
+	
+	public void setCartCount(JLabel newCartCount) {
+		this.cartCountLabel = newCartCount;
+	}
+	
+	public void setMainPanel(JPanel newMainPanel) {
+		this.mainPanel = newMainPanel;
+	}
+	
+	public void setContentPanel(JPanel newContentPanel) {
+		this.contentPanel = newContentPanel;
+	}
 
 	public void addToCart(Product p, Map<Product, Integer> cart) {
         if (p.stock <= 0) {
