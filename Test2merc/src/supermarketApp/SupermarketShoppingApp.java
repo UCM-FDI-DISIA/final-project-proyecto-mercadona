@@ -18,16 +18,32 @@ public class SupermarketShoppingApp extends JFrame {
     private JPanel mainPanel;
     private JPanel contentPanel;
     private JPanel topBar;
-    private Products products = new Products(this, this.searchField);;
+    private Products products = new Products(this, this.searchField);
     private List<Product> allProducts = new ArrayList<>();
     
     private JTextField searchField;
     private JButton searchButton, cartButton, homeButton;
     private JLabel cartCountLabel;
-
+    private ShoppingCart shoppingCart = new ShoppingCart(this, cartCountLabel, mainPanel, contentPanel);
     private Map<Product, Integer> cart = new HashMap<>();
+
+    
     
     private JComboBox<String> supermarketFilter, brandFilter, categoryFilter;
+    
+    public void productsNotFound(String query) {
+    	JOptionPane.showMessageDialog(this, 
+                "No se encontraron productos que coincidan con: " + query, 
+                "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public void noMoreStock() {
+    	JOptionPane.showMessageDialog(this, "No hay más stock disponible", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public void addedToCart(ShoppingCart cart, Product p) {
+    	JOptionPane.showMessageDialog(this, p.name + " añadido al carrito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    }
     
     public SupermarketShoppingApp() {
         setTitle("Supermarket Shopping App");
@@ -39,6 +55,7 @@ public class SupermarketShoppingApp extends JFrame {
         mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.WHITE);
         add(mainPanel);
+        
         
         buildTopBar();
         buildHomeContent();
@@ -89,7 +106,7 @@ public class SupermarketShoppingApp extends JFrame {
         cartButton = new JButton("🛒 Carrito");
         cartButton.setBackground(Color.WHITE);
         cartButton.setFocusPainted(false);
-        cartButton.addActionListener(e -> showCart());
+        cartButton.addActionListener(e -> shoppingCart.showCart(cart));
         cartCountLabel = new JLabel("(0)");
         cartCountLabel.setForeground(Color.WHITE);
         cartCountLabel.setFont(new Font("Arial", Font.BOLD, 14));
@@ -141,27 +158,6 @@ public class SupermarketShoppingApp extends JFrame {
         mainPanel.revalidate();
         mainPanel.repaint();
     }
-
-    public void addToCart(Product p) {
-        if (p.stock <= 0) {
-            JOptionPane.showMessageDialog(this, "Producto sin stock", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        int currentQuantity = cart.getOrDefault(p, 0);
-        if (currentQuantity < p.stock) {
-            cart.put(p, currentQuantity + 1);
-            updateCartCount();
-            JOptionPane.showMessageDialog(this, p.name + " añadido al carrito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "No hay más stock disponible", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    private void updateCartCount() {
-        int total = cart.values().stream().mapToInt(Integer::intValue).sum();
-        cartCountLabel.setText("(" + total + ")");
-    }
     
     private void applyFilters() {
         String supermarket = (String) supermarketFilter.getSelectedItem();
@@ -180,137 +176,11 @@ public class SupermarketShoppingApp extends JFrame {
         products.displayProducts(filtered);
     }
     
-    private void showCart() {
-        if (contentPanel != null) {
-            mainPanel.remove(contentPanel);
-        }
-        
-        contentPanel = new JPanel(new BorderLayout());
-        contentPanel.setBackground(Color.WHITE);
-        contentPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
-        
-        JLabel title = new JLabel("🛒 Mi Carrito");
-        title.setFont(new Font("Arial", Font.BOLD, 24));
-        title.setHorizontalAlignment(SwingConstants.CENTER);
-        contentPanel.add(title, BorderLayout.NORTH);
-        
-        if (cart.isEmpty()) {
-            JLabel empty = new JLabel("El carrito está vacío");
-            empty.setFont(new Font("Arial", Font.PLAIN, 16));
-            empty.setHorizontalAlignment(SwingConstants.CENTER);
-            contentPanel.add(empty, BorderLayout.CENTER);
-        } else {
-            JPanel cartPanel = new JPanel();
-            cartPanel.setLayout(new BoxLayout(cartPanel, BoxLayout.Y_AXIS));
-            cartPanel.setBackground(Color.WHITE);
-            
-            double subtotal = 0;
-            for (Map.Entry<Product, Integer> entry : cart.entrySet()) {
-                Product p = entry.getKey();
-                int quantity = entry.getValue();
-                double itemTotal = p.price * quantity;
-                subtotal += itemTotal;
-                
-                JPanel itemPanel = new JPanel(new BorderLayout(10, 5));
-                itemPanel.setBackground(new Color(245, 245, 245));
-                itemPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-                itemPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
-                
-                JPanel infoPanel = new JPanel();
-                infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
-                infoPanel.setBackground(new Color(245, 245, 245));
-                infoPanel.add(new JLabel("<html><b>" + p.name + "</b></html>"));
-                infoPanel.add(new JLabel(p.supermarket + " - " + p.brand));
-                infoPanel.add(new JLabel(String.format("%.2f€ x %d = %.2f€", p.price, quantity, itemTotal)));
-                
-                JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-                controlPanel.setBackground(new Color(245, 245, 245));
-                
-                JButton decreaseBtn = new JButton("-");
-                decreaseBtn.addActionListener(e -> {
-                    if (quantity > 1) {
-                        cart.put(p, quantity - 1);
-                    } else {
-                        cart.remove(p);
-                    }
-                    updateCartCount();
-                    showCart();
-                });
-                
-                JLabel qtyLabel = new JLabel(" " + quantity + " ");
-                
-                JButton increaseBtn = new JButton("+");
-                increaseBtn.addActionListener(e -> {
-                    if (quantity < p.stock) {
-                        cart.put(p, quantity + 1);
-                        updateCartCount();
-                        showCart();
-                    } else {
-                        JOptionPane.showMessageDialog(this, "No hay más stock", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                });
-                
-                JButton removeBtn = new JButton("🗑");
-                removeBtn.addActionListener(e -> {
-                    cart.remove(p);
-                    updateCartCount();
-                    showCart();
-                });
-                
-                controlPanel.add(decreaseBtn);
-                controlPanel.add(qtyLabel);
-                controlPanel.add(increaseBtn);
-                controlPanel.add(removeBtn);
-                
-                itemPanel.add(infoPanel, BorderLayout.CENTER);
-                itemPanel.add(controlPanel, BorderLayout.EAST);
-                
-                cartPanel.add(itemPanel);
-                cartPanel.add(Box.createVerticalStrut(10));
-            }
-            
-            double shipping = subtotal >= 50 ? 0 : 12;
-            double total = subtotal + shipping;
-            
-            JPanel summaryPanel = new JPanel();
-            summaryPanel.setLayout(new BoxLayout(summaryPanel, BoxLayout.Y_AXIS));
-            summaryPanel.setBackground(new Color(230, 255, 230));
-            summaryPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(0, 150, 0), 2),
-                new EmptyBorder(15, 15, 15, 15)
-            ));
-            
-            summaryPanel.add(new JLabel(String.format("Subtotal: %.2f€", subtotal)));
-            summaryPanel.add(new JLabel(String.format("Envío: %.2f€ %s", shipping, subtotal >= 50 ? "(¡Gratis!)" : "")));
-            JLabel totalLabel = new JLabel(String.format("TOTAL: %.2f€", total));
-            totalLabel.setFont(new Font("Arial", Font.BOLD, 18));
-            summaryPanel.add(totalLabel);
-            
-            cartPanel.add(summaryPanel);
-            
-            JScrollPane scrollPane = new JScrollPane(cartPanel);
-            scrollPane.setBorder(null);
-            contentPanel.add(scrollPane, BorderLayout.CENTER);
-            
-            JButton checkoutBtn = new JButton("Proceder al Pago");
-            checkoutBtn.setBackground(new Color(0, 150, 0));
-            checkoutBtn.setForeground(Color.WHITE);
-            checkoutBtn.setFont(new Font("Arial", Font.BOLD, 16));
-            checkoutBtn.setFocusPainted(false);
-            checkoutBtn.addActionListener(e -> showCheckout(total));
-            
-            JPanel bottomPanel = new JPanel();
-            bottomPanel.setBackground(Color.WHITE);
-            bottomPanel.add(checkoutBtn);
-            contentPanel.add(bottomPanel, BorderLayout.SOUTH);
-        }
-        
-        mainPanel.add(contentPanel, BorderLayout.CENTER);
-        mainPanel.revalidate();
-        mainPanel.repaint();
+    public void addToCart(Product p) {
+    	shoppingCart.addToCart(p, cart);
     }
     
-    private void showCheckout(double total) {
+    public void showCheckout(double total) {
         if (contentPanel != null) {
             mainPanel.remove(contentPanel);
         }
@@ -494,7 +364,7 @@ public class SupermarketShoppingApp extends JFrame {
         JOptionPane.showMessageDialog(this, receipt, "¡Compra Completada!", JOptionPane.INFORMATION_MESSAGE);
         
         cart.clear();
-        updateCartCount();
+        shoppingCart.updateCartCount(cart);
         buildHomeContent();
     }
     
