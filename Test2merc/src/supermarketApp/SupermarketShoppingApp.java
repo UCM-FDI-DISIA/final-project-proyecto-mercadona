@@ -20,10 +20,11 @@ public class SupermarketShoppingApp extends JFrame {
     private JPanel topBar;
     private Products products = new Products(this, this.searchField);
     private List<Product> allProducts = new ArrayList<>();
+    private ProfileSystem profileSystem;
     
     private JTextField searchField;
     private JButton searchButton, cartButton, homeButton;
-    private JLabel cartCountLabel;
+    private JLabel cartCountLabel = new JLabel("(0)");
     private ShoppingCart shoppingCart = new ShoppingCart(this, cartCountLabel, mainPanel, contentPanel);
     private Map<Product, Integer> cart = new HashMap<>();
 
@@ -56,6 +57,7 @@ public class SupermarketShoppingApp extends JFrame {
         shoppingCart.setMainPanel(mainPanel);
         mainPanel.setBackground(Color.WHITE);
         add(mainPanel);
+        profileSystem = new ProfileSystem(this);
         
         
         buildTopBar();
@@ -101,20 +103,46 @@ public class SupermarketShoppingApp extends JFrame {
         centerPanel.add(searchField);
         centerPanel.add(searchButton);
         
-        // Panel derecho: Carrito
-        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+     // Panel derecho: Perfil y Carrito
+        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
         rightPanel.setBackground(new Color(0, 150, 0));
-        cartButton = new JButton("🛒 Carrito");
+
+        // Botón de perfil
+        JButton profileButton = new JButton("👤 Perfil");
+        profileButton.setBackground(Color.WHITE);
+        profileButton.setFocusPainted(false);
+        profileButton.addActionListener(e -> {
+            if (contentPanel != null) {
+                mainPanel.remove(contentPanel);
+            }
+            contentPanel = new JPanel(new BorderLayout());
+            mainPanel.add(contentPanel, BorderLayout.CENTER);
+            profileSystem.showProfileScreen(contentPanel, mainPanel);
+        });
+        rightPanel.add(profileButton);
+
+     // Botón de carrito con contador integrado
+        cartCountLabel.setForeground(Color.BLACK);
+        cartCountLabel.setFont(new Font("Arial", Font.BOLD, 12));
+
+        JPanel cartInnerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 2, 0));
+        cartInnerPanel.setBackground(Color.WHITE);
+        cartInnerPanel.add(new JLabel("🛒 Carrito "));
+        cartInnerPanel.add(cartCountLabel);
+
+        cartButton = new JButton();
+        cartButton.setLayout(new BorderLayout());
+        cartButton.add(cartInnerPanel, BorderLayout.CENTER);
         cartButton.setBackground(Color.WHITE);
         cartButton.setFocusPainted(false);
+        cartButton.setBorderPainted(true);
         cartButton.addActionListener(e -> shoppingCart.showCart(cart));
-        cartCountLabel = new JLabel("(0)");
-        shoppingCart.setCartCount(cartCountLabel);
-        cartCountLabel.setForeground(Color.WHITE);
-        cartCountLabel.setFont(new Font("Arial", Font.BOLD, 14));
+
         rightPanel.add(cartButton);
-        rightPanel.add(cartCountLabel);
-        
+
+        // Actualizar la referencia del ShoppingCart
+        shoppingCart.setCartCount(cartCountLabel);
+
         topBar.add(leftPanel, BorderLayout.WEST);
         topBar.add(centerPanel, BorderLayout.CENTER);
         topBar.add(rightPanel, BorderLayout.EAST);
@@ -366,9 +394,15 @@ public class SupermarketShoppingApp extends JFrame {
         
         JOptionPane.showMessageDialog(this, receipt, "¡Compra Completada!", JOptionPane.INFORMATION_MESSAGE);
         
+        profileSystem.addPurchaseToHistory(cart, total, paymentMethod);
+        
         cart.clear();
         shoppingCart.updateCartCount(cart);
         buildHomeContent();
+    }
+    
+    public void addToFavorites(Product p) {
+        profileSystem.addToFavorites(p);
     }
     
     static class Product {

@@ -22,6 +22,7 @@ import java.awt.image.BufferedImage;
 import java.net.URI;
 import javax.imageio.ImageIO;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
@@ -193,7 +194,9 @@ public class Products {
 	    infoPanel.add(priceLabel);
 	    infoPanel.add(stockLabel);
 	    
-	    // Botón añadir
+	    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+	    buttonPanel.setBackground(new Color(250, 250, 250));
+	    
 	    JButton addButton = new JButton("Añadir al carrito");
 	    addButton.setBackground(new Color(0, 150, 0));
 	    addButton.setForeground(Color.WHITE);
@@ -201,9 +204,18 @@ public class Products {
 	    addButton.setEnabled(p.stock > 0);
 	    addButton.addActionListener(e -> app.addToCart(p));
 	    
+	    // Botón de favoritos (NUEVO)
+	    JButton favButton = new JButton("⭐");
+	    favButton.setToolTipText("Añadir a favoritos");
+	    favButton.setPreferredSize(new Dimension(45, 30));
+	    favButton.addActionListener(e -> app.addToFavorites(p));
+	    
+	    buttonPanel.add(addButton);
+	    buttonPanel.add(favButton);
+	    
 	    card.add(imagePanel, BorderLayout.NORTH);
 	    card.add(infoPanel, BorderLayout.CENTER);
-	    card.add(addButton, BorderLayout.SOUTH);
+	    card.add(buttonPanel, BorderLayout.SOUTH);
 	    
 	    return card;
 	}
