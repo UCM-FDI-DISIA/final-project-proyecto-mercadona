@@ -437,21 +437,33 @@ public class SupermarketShoppingApp extends JFrame {
         profileSystem.addToFavorites(p);
     }
     
-    static class Product {
-        String name;
-        String supermarket;
-        String brand;
-        String category;
-        double price;
-        int stock;
+
+ // Add this to SupermarketShoppingApp.java (replace the existing Product class)
+
+    public static class Product implements java.io.Serializable {
+        private static final long serialVersionUID = 1L;
         
-        Product(String name, String supermarket, String brand, String category, double price, int stock) {
+        public String name;
+        public String supermarket;
+        public String brand;
+        public String category;
+        public double price;
+        public int stock;
+        public String imageUrl;
+
+        public Product(String name, String supermarket, String brand, String category, 
+                       double price, int stock, String imageUrl) {
             this.name = name;
             this.supermarket = supermarket;
             this.brand = brand;
             this.category = category;
             this.price = price;
             this.stock = stock;
+            this.imageUrl = imageUrl;
+        }
+        
+        public String getImageUrl() {
+            return imageUrl;
         }
     }
     

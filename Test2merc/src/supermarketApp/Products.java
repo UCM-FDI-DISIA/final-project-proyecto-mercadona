@@ -44,76 +44,125 @@ public class Products {
 
 	public void initializeProducts(List<Product> allProducts) {        
         // Mercadona - Hacendado
-        allProducts.add(new Product("Leche Entera Hacendado", "Mercadona", "Hacendado", "Lácteos", 0.95, 50));
-        allProducts.add(new Product("Pan de Molde Hacendado", "Mercadona", "Hacendado", "Panadería", 0.85, 30));
-        allProducts.add(new Product("Yogur Natural Hacendado", "Mercadona", "Hacendado", "Lácteos", 1.20, 40));
-        allProducts.add(new Product("Galletas María Hacendado", "Mercadona", "Hacendado", "Dulces", 0.75, 60));
-        allProducts.add(new Product("Aceite de Oliva Hacendado", "Mercadona", "Hacendado", "Aceites", 3.50, 25));
+        allProducts.add(new Product("Leche Entera Hacendado", "Mercadona", "Hacendado", "Lácteos", 0.95, 50, 
+            "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400"));
+        allProducts.add(new Product("Pan de Molde Hacendado", "Mercadona", "Hacendado", "Panadería", 0.85, 30, 
+            "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400"));
+        allProducts.add(new Product("Yogur Natural Hacendado", "Mercadona", "Hacendado", "Lácteos", 1.20, 40, 
+            "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400"));
+        allProducts.add(new Product("Galletas María Hacendado", "Mercadona", "Hacendado", "Dulces", 0.75, 60, 
+            "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400"));
+        allProducts.add(new Product("Aceite de Oliva Hacendado", "Mercadona", "Hacendado", "Aceites", 3.50, 25, 
+            "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400"));
         
         // Día
-        allProducts.add(new Product("Leche Semidesnatada Día", "Día", "Día", "Lácteos", 0.89, 45));
-        allProducts.add(new Product("Cereales Chocolate Día", "Día", "Día", "Desayuno", 2.10, 35));
-        allProducts.add(new Product("Detergente Lavadora Día", "Día", "Día", "Limpieza", 4.50, 20));
-        allProducts.add(new Product("Pasta Espagueti Día", "Día", "Día", "Pasta", 0.65, 55));
+        allProducts.add(new Product("Leche Semidesnatada Día", "Día", "Día", "Lácteos", 0.89, 45, 
+            "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400"));
+        allProducts.add(new Product("Cereales Chocolate Día", "Día", "Día", "Desayuno", 2.10, 35, 
+            "https://images.unsplash.com/photo-1517686469429-8bdb0b93c749?w=400"));
+        allProducts.add(new Product("Detergente Lavadora Día", "Día", "Día", "Limpieza", 4.50, 20, 
+            "https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400"));
+        allProducts.add(new Product("Pasta Espagueti Día", "Día", "Día", "Pasta", 0.65, 55, 
+            "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400"));
         
         // Lidl
-        allProducts.add(new Product("Chocolate Negro Lidl", "Lidl", "Lidl", "Dulces", 1.29, 40));
-        allProducts.add(new Product("Café Molido Lidl", "Lidl", "Lidl", "Café", 2.99, 30));
-        allProducts.add(new Product("Queso Gouda Lidl", "Lidl", "Lidl", "Lácteos", 1.85, 28));
+        allProducts.add(new Product("Chocolate Negro Lidl", "Lidl", "Lidl", "Dulces", 1.29, 40, 
+            "https://elavegan.com/wp-content/uploads/2023/01/homemade-chocolate-bars.jpg"));
+        allProducts.add(new Product("Café Molido Lidl", "Lidl", "Lidl", "Café", 2.99, 30, 
+            "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400"));
+        allProducts.add(new Product("Queso Gouda Lidl", "Lidl", "Lidl", "Lácteos", 1.85, 28, 
+            "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=400"));
         
         // Marcas comunes en varios supermercados
-        allProducts.add(new Product("Yogur Danone Natural", "Mercadona", "Danone", "Lácteos", 2.40, 50));
-        allProducts.add(new Product("Yogur Danone Natural", "Día", "Danone", "Lácteos", 2.35, 45));
-        allProducts.add(new Product("Yogur Danone Natural", "Lidl", "Danone", "Lácteos", 2.30, 40));
+        allProducts.add(new Product("Yogur Danone Natural", "Mercadona", "Danone", "Lácteos", 2.40, 50, 
+            "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400"));
+        allProducts.add(new Product("Yogur Danone Natural", "Día", "Danone", "Lácteos", 2.35, 45, 
+            "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400"));
+        allProducts.add(new Product("Yogur Danone Natural", "Lidl", "Danone", "Lácteos", 2.30, 40, 
+            "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400"));
         
-        allProducts.add(new Product("Cola Cao Original", "Mercadona", "Cola Cao", "Desayuno", 3.20, 35));
-        allProducts.add(new Product("Cola Cao Original", "Día", "Cola Cao", "Desayuno", 3.15, 30));
+        allProducts.add(new Product("Cola Cao Original", "Mercadona", "Cola Cao", "Desayuno", 3.20, 35, 
+            "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=400"));
+        allProducts.add(new Product("Cola Cao Original", "Día", "Cola Cao", "Desayuno", 3.15, 30, 
+            "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=400"));
         
-        allProducts.add(new Product("Detergente Ariel", "Mercadona", "Ariel", "Limpieza", 8.50, 22));
-        allProducts.add(new Product("Detergente Ariel", "Lidl", "Ariel", "Limpieza", 8.30, 18));
+        allProducts.add(new Product("Detergente Ariel", "Mercadona", "Ariel", "Limpieza", 8.50, 22, 
+            "https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400"));
+        allProducts.add(new Product("Detergente Ariel", "Lidl", "Ariel", "Limpieza", 8.30, 18, 
+            "https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400"));
         
         
-     // Pasta, Arroz y Legumbres
-        allProducts.add(new Product("Espaguetis 500g", "Mercadona", "Gallo", "Pasta", 1.10, 300));
-        allProducts.add(new Product("Arroz Basmati 1kg", "Lidl", "Brillante", "Arroz", 2.45, 180));
-        allProducts.add(new Product("Lentejas 500g", "Carrefour", "Carrefour", "Legumbres", 1.25, 150));
-        allProducts.add(new Product("Macarrones 500g", "Alcampo", "Barilla", "Pasta", 1.35, 200));
-        allProducts.add(new Product("Garbanzos Cocidos 400g", "Mercadona", "Hacendado", "Legumbres", 0.85, 220));
+        // Pasta, Arroz y Legumbres
+        allProducts.add(new Product("Espaguetis 500g", "Mercadona", "Gallo", "Pasta", 1.10, 300, 
+            "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400"));
+        allProducts.add(new Product("Arroz Basmati 1kg", "Lidl", "Brillante", "Arroz", 2.45, 180, 
+            "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400"));
+        allProducts.add(new Product("Lentejas 500g", "Carrefour", "Carrefour", "Legumbres", 1.25, 150, 
+            "https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=400"));
+        allProducts.add(new Product("Macarrones 500g", "Alcampo", "Barilla", "Pasta", 1.35, 200, 
+            "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400"));
+        allProducts.add(new Product("Garbanzos Cocidos 400g", "Mercadona", "Hacendado", "Legumbres", 0.85, 220, 
+            "https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=400"));
 
         // Aceites y Condimentos
-        allProducts.add(new Product("Aceite de Oliva Virgen Extra 1L", "Mercadona", "Hacendado", "Aceites", 4.99, 140));
-        allProducts.add(new Product("Vinagre de Vino 500ml", "Carrefour", "Carrefour", "Condimentos", 0.95, 100));
-        allProducts.add(new Product("Sal Marina 1kg", "Lidl", "Alipende", "Condimentos", 0.45, 280));
-        allProducts.add(new Product("Mayonesa 450ml", "Alcampo", "Hellmanns", "Condimentos", 2.35, 120));
-        allProducts.add(new Product("Ketchup 560g", "Mercadona", "Heinz", "Condimentos", 2.15, 150));
+        allProducts.add(new Product("Aceite de Oliva Virgen Extra 1L", "Mercadona", "Hacendado", "Aceites", 4.99, 140, 
+            "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400"));
+        allProducts.add(new Product("Vinagre de Vino 500ml", "Carrefour", "Carrefour", "Condimentos", 0.95, 100, 
+            "https://images.unsplash.com/photo-1517040297999-e5b7f1c8b1e7?w=400"));
+        allProducts.add(new Product("Sal Marina 1kg", "Lidl", "Alipende", "Condimentos", 0.45, 280, 
+            "https://images.unsplash.com/photo-1526346698789-22fd84314424?w=400"));
+        allProducts.add(new Product("Mayonesa 450ml", "Alcampo", "Hellmanns", "Condimentos", 2.35, 120, 
+            "https://images.unsplash.com/photo-1472476443507-c7a5948772fc?w=400"));
+        allProducts.add(new Product("Ketchup 560g", "Mercadona", "Heinz", "Condimentos", 2.15, 150, 
+            "https://images.unsplash.com/photo-1571986946806-8f8c8f928f7b?w=400"));
 
         // Bebidas
-        allProducts.add(new Product("Agua Mineral 1.5L Pack 6", "Carrefour", "Font Vella", "Bebidas", 2.10, 400));
-        allProducts.add(new Product("Coca Cola 2L", "Mercadona", "Coca Cola", "Refrescos", 1.85, 300));
-        allProducts.add(new Product("Zumo de Naranja 1L", "Lidl", "Don Simon", "Zumos", 1.45, 180));
-        allProducts.add(new Product("Cerveza Pack 6", "Alcampo", "Mahou", "Alcohol", 3.99, 250));
-        allProducts.add(new Product("Vino Tinto Crianza", "Carrefour", "Marqués de Cáceres", "Alcohol", 6.50, 90));
+        allProducts.add(new Product("Agua Mineral 1.5L Pack 6", "Carrefour", "Font Vella", "Bebidas", 2.10, 400, 
+            "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=400"));
+        allProducts.add(new Product("Coca Cola 2L", "Mercadona", "Coca Cola", "Refrescos", 1.85, 300, 
+            "https://images.unsplash.com/photo-1554866585-cd94860890b7?w=400"));
+        allProducts.add(new Product("Zumo de Naranja 1L", "Lidl", "Don Simon", "Zumos", 1.45, 180, 
+            "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400"));
+        allProducts.add(new Product("Cerveza Pack 6", "Alcampo", "Mahou", "Alcohol", 3.99, 250, 
+            "https://images.unsplash.com/photo-1608270586620-248524c67de9?w=400"));
+        allProducts.add(new Product("Vino Tinto Crianza", "Carrefour", "Marqués de Cáceres", "Alcohol", 6.50, 90, 
+            "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400"));
 
         // Snacks y Dulces
-        allProducts.add(new Product("Patatas Fritas 150g", "Mercadona", "Lays", "Snacks", 1.75, 200));
-        allProducts.add(new Product("Chocolate con Leche 100g", "Lidl", "Milka", "Dulces", 1.20, 180));
-        allProducts.add(new Product("Galletas María 800g", "Carrefour", "Fontaneda", "Dulces", 1.99, 150));
-        allProducts.add(new Product("Frutos Secos Mixtos 200g", "Alcampo", "Hacendado", "Snacks", 2.85, 120));
-        allProducts.add(new Product("Chocolate Negro 70% 100g", "Mercadona", "Nestlé", "Dulces", 1.65, 140));
+        allProducts.add(new Product("Patatas Fritas 150g", "Mercadona", "Lays", "Snacks", 1.75, 200, 
+            "https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=400"));
+        allProducts.add(new Product("Chocolate con Leche 100g", "Lidl", "Milka", "Dulces", 1.20, 180, 
+            "https://elavegan.com/wp-content/uploads/2023/01/homemade-chocolate-bars.jpg"));
+        allProducts.add(new Product("Galletas María 800g", "Carrefour", "Fontaneda", "Dulces", 1.99, 150, 
+            "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400"));
+        allProducts.add(new Product("Frutos Secos Mixtos 200g", "Alcampo", "Hacendado", "Snacks", 2.85, 120, 
+            "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=400"));
+        allProducts.add(new Product("Chocolate Negro 70% 100g", "Mercadona", "Nestlé", "Dulces", 1.65, 140, 
+            "https://elavegan.com/wp-content/uploads/2023/01/homemade-chocolate-bars.jpg"));
 
         // Congelados
-        allProducts.add(new Product("Pizza 4 Quesos", "Lidl", "Dr. Oetker", "Congelados", 3.45, 100));
-        allProducts.add(new Product("Guisantes Congelados 1kg", "Carrefour", "Carrefour", "Congelados", 1.89, 160));
-        allProducts.add(new Product("Helado de Vainilla 900ml", "Mercadona", "Häagen-Dazs", "Congelados", 4.99, 80));
-        allProducts.add(new Product("Lasaña Boloñesa 400g", "Alcampo", "Findus", "Congelados", 3.25, 90));
-        allProducts.add(new Product("Croquetas Jamón 500g", "Lidl", "La Cocinera", "Congelados", 2.99, 110));
+        allProducts.add(new Product("Pizza 4 Quesos", "Lidl", "Dr. Oetker", "Congelados", 3.45, 100, 
+            "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400"));
+        allProducts.add(new Product("Guisantes Congelados 1kg", "Carrefour", "Carrefour", "Congelados", 1.89, 160, 
+            "https://images.unsplash.com/photo-1587735243615-c03f25aaff15?w=400"));
+        allProducts.add(new Product("Helado de Vainilla 900ml", "Mercadona", "Häagen-Dazs", "Congelados", 4.99, 80, 
+            "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400"));
+        allProducts.add(new Product("Lasaña Boloñesa 400g", "Alcampo", "Findus", "Congelados", 3.25, 90, 
+            "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?w=400"));
+        allProducts.add(new Product("Croquetas Jamón 500g", "Lidl", "La Cocinera", "Congelados", 2.99, 110, 
+            "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400"));
 
         // Limpieza y Hogar
-        allProducts.add(new Product("Detergente Líquido 40 lavados", "Mercadona", "Deliplus", "Limpieza", 5.95, 120));
-        allProducts.add(new Product("Suavizante 1.5L", "Carrefour", "Vernel", "Limpieza", 2.45, 140));
-        allProducts.add(new Product("Lavavajillas 650ml", "Lidl", "Fairy", "Limpieza", 1.85, 180));
-        allProducts.add(new Product("Papel Higiénico 12 rollos", "Alcampo", "Scottex", "Hogar", 4.50, 200));
-        allProducts.add(new Product("Servilletas Pack 100", "Mercadona", "Hacendado", "Hogar", 0.95, 250));
+        allProducts.add(new Product("Detergente Líquido 40 lavados", "Mercadona", "Deliplus", "Limpieza", 5.95, 120, 
+            "https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400"));
+        allProducts.add(new Product("Suavizante 1.5L", "Carrefour", "Vernel", "Limpieza", 2.45, 140, 
+            "https://images.unsplash.com/photo-1602143407820-e10a5573d4fc?w=400"));
+        allProducts.add(new Product("Lavavajillas 650ml", "Lidl", "Fairy", "Limpieza", 1.85, 180, 
+            "https://images.unsplash.com/photo-1585612840865-b78f9b6d8ab0?w=400"));
+        allProducts.add(new Product("Papel Higiénico 12 rollos", "Alcampo", "Scottex", "Hogar", 4.50, 200, 
+            "https://images.unsplash.com/photo-1584556326561-c8746083993b?w=400"));
+        allProducts.add(new Product("Servilletas Pack 100", "Mercadona", "Hacendado", "Hogar", 0.95, 250, 
+            "https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?w=400"));
     }
 	
 	public void displayProducts(List<Product> products) {
@@ -149,9 +198,8 @@ public class Products {
 	    imagePanel.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220)));
 	    
 	    try {
-	        // Generar URL de imagen basada en el producto
-	        String imageUrl = getProductImageUrl(p);
-	        URI uri = new URI(imageUrl);
+	        // Usar la URL de imagen del producto directamente
+	        URI uri = new URI(p.imageUrl);
 	        BufferedImage originalImage = ImageIO.read(uri.toURL());
 	        Image scaledImage = originalImage.getScaledInstance(180, 150, Image.SCALE_SMOOTH);
 	        JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
@@ -206,13 +254,13 @@ public class Products {
 	    addButton.setForeground(Color.WHITE);
 	    addButton.setFocusPainted(false);
 	    addButton.setEnabled(p.stock > 0);
-	    addButton.addActionListener(e -> app.addToCart(p));
+	    addButton.addActionListener(e -> Products.this.app.addToCart(p));
 	    
-	    // Botón de favoritos (NUEVO)
+	    // Botón de favoritos
 	    JButton favButton = new JButton("⭐");
 	    favButton.setToolTipText("Añadir a favoritos");
 	    favButton.setPreferredSize(new Dimension(45, 30));
-	    favButton.addActionListener(e -> app.addToFavorites(p));
+	    favButton.addActionListener(e -> Products.this.app.addToFavorites(p));
 	    
 	    buttonPanel.add(addButton);
 	    buttonPanel.add(favButton);
@@ -222,39 +270,6 @@ public class Products {
 	    card.add(buttonPanel, BorderLayout.SOUTH);
 	    
 	    return card;
-	}
-
-	private String getProductImageUrl(Product p) {
-	    // Mapear productos a imágenes reales
-	    String productName = p.name.toLowerCase();
-	    
-	    if (productName.contains("leche")) {
-	        return "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400";
-	    } else if (productName.contains("pan")) {
-	        return "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400";
-	    } else if (productName.contains("yogur")) {
-	        return "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400";
-	    } else if (productName.contains("galletas")) {
-	        return "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400";
-	    } else if (productName.contains("aceite")) {
-	        return "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400";
-	    } else if (productName.contains("cereales")) {
-	        return "https://www.dia.es/product_images/74305/74305_ISO_0_ES.jpg";
-	    } else if (productName.contains("detergente")) {
-	        return "https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400";
-	    } else if (productName.contains("pasta") || productName.contains("espagueti")) {
-	        return "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400";
-	    } else if (productName.contains("chocolate")) {
-	        return "https://elavegan.com/wp-content/uploads/2023/01/homemade-chocolate-bars.jpg";
-	    } else if (productName.contains("café")) {
-	        return "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400";
-	    } else if (productName.contains("queso")) {
-	        return "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=400";
-	    } else if (productName.contains("cola cao")) {
-	        return "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=400";
-	    }
-	    
-	    return "https://images.unsplash.com/photo-1534723452862-4c874018d66d?w=400"; // Imagen genérica de supermercado
 	}
 
 	private String getCategoryIcon(String category) {
