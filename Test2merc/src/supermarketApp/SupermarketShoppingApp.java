@@ -244,10 +244,10 @@ public class SupermarketShoppingApp extends JFrame {
             
             // Hacer los campos no editables (opcional)
             // Si quieres que puedan modificarse, comenta estas líneas
-            nameField.setEditable(false);
+            /*nameField.setEditable(false);
             emailField.setEditable(false);
             addressField.setEditable(false);
-            phoneField.setEditable(false);
+            phoneField.setEditable(false); */
             
             // Darles un color diferente para indicar que están precargados
             Color prefilledColor = new Color(240, 240, 240);
