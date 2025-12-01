@@ -24,8 +24,8 @@ import supermarketApp.SupermarketShoppingApp.Product;
 public class ShoppingCart{
 	
 	private JLabel cartCountLabel;
-	private JPanel mainPanel;
-    private JPanel contentPanel;
+	public JPanel mainPanel;
+    public JPanel contentPanel;
     private SupermarketShoppingApp app;
 	
 	public ShoppingCart(SupermarketShoppingApp app, JLabel cartCountLabel, JPanel mainPanel, JPanel contentPanel) {
@@ -68,7 +68,7 @@ public class ShoppingCart{
         cartCountLabel.setText("(" + total + ")");
     }
     
-    public void showCart(Map<Product, Integer> cart) {
+    public JPanel showCart(Map<Product, Integer> cart) {
         if (contentPanel != null) {
             mainPanel.remove(contentPanel);
         }
@@ -196,5 +196,7 @@ public class ShoppingCart{
         mainPanel.add(contentPanel, BorderLayout.CENTER);
         mainPanel.revalidate();
         mainPanel.repaint();
+        
+        return contentPanel;
     }
 }

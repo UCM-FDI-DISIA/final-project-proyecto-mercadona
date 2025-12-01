@@ -36,6 +36,10 @@ public class Products {
 		this.app = app;
 		this.searchField= searchField;
 	}
+	
+	public void setSearchfield(JTextField newSearchField) {
+		this.searchField = newSearchField;
+	}
 
 	public void initializeProducts(List<Product> allProducts) {        
         // Mercadona - Hacendado

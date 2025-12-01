@@ -75,7 +75,7 @@ public class SupermarketShoppingApp extends JFrame {
         contentPanel.repaint();
     }
     
-    private void buildTopBar() {
+    public void buildTopBar() {
         topBar = new JPanel(new BorderLayout());
         topBar.setBackground(new Color(0, 150, 0));
         topBar.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -93,6 +93,7 @@ public class SupermarketShoppingApp extends JFrame {
         JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         centerPanel.setBackground(new Color(0, 150, 0));
         searchField = new JTextField(25);
+        products.setSearchfield(searchField);
         searchButton = new JButton("🔍 Buscar");
         searchButton.setBackground(Color.WHITE);
         searchButton.setFocusPainted(false);
@@ -107,7 +108,7 @@ public class SupermarketShoppingApp extends JFrame {
         cartButton = new JButton("🛒 Carrito");
         cartButton.setBackground(Color.WHITE);
         cartButton.setFocusPainted(false);
-        cartButton.addActionListener(e -> shoppingCart.showCart(cart));
+        cartButton.addActionListener(e -> contentPanel = shoppingCart.showCart(cart));
         cartCountLabel = new JLabel("(0)");
         shoppingCart.setCartCount(cartCountLabel);
         cartCountLabel.setForeground(Color.WHITE);
@@ -120,6 +121,10 @@ public class SupermarketShoppingApp extends JFrame {
         topBar.add(rightPanel, BorderLayout.EAST);
         
         mainPanel.add(topBar, BorderLayout.NORTH);
+    }
+    
+    public void setContentPanel(JPanel newPanel) {
+    	this.contentPanel = newPanel;
     }
     
     private void buildHomeContent() {
@@ -192,6 +197,8 @@ public class SupermarketShoppingApp extends JFrame {
         contentPanel.setBackground(Color.WHITE);
         contentPanel.setBorder(new EmptyBorder(20, 50, 20, 50));
         
+        shoppingCart.setContentPanel(contentPanel);
+        shoppingCart.setMainPanel(mainPanel);
         JLabel title = new JLabel("Información de Envío y Pago");
         title.setFont(new Font("Arial", Font.BOLD, 20));
         title.setHorizontalAlignment(SwingConstants.CENTER);
