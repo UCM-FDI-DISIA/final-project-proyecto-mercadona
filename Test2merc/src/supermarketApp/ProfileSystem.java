@@ -249,10 +249,10 @@ public class ProfileSystem {
     }
     
     // ==================== PROFILE VIEW ====================
-    public void showProfileScreen(JPanel contentPanel, JPanel mainPanel) {
+    public JPanel showProfileScreen(JPanel contentPanel, JPanel mainPanel) {
         if (currentUser == null) {
             showLoginScreen(contentPanel, mainPanel);
-            return;
+            return contentPanel;
         }
         
         contentPanel.removeAll();
@@ -304,6 +304,8 @@ public class ProfileSystem {
         
         contentPanel.revalidate();
         contentPanel.repaint();
+        
+        return contentPanel;
     }
     
     private JPanel createInfoPanel() {

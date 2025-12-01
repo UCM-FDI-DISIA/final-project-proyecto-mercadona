@@ -117,7 +117,7 @@ public class SupermarketShoppingApp extends JFrame {
             }
             contentPanel = new JPanel(new BorderLayout());
             mainPanel.add(contentPanel, BorderLayout.CENTER);
-            profileSystem.showProfileScreen(contentPanel, mainPanel);
+            contentPanel = profileSystem.showProfileScreen(contentPanel, mainPanel);
         });
         rightPanel.add(profileButton);
 
@@ -234,10 +234,42 @@ public class SupermarketShoppingApp extends JFrame {
         JTextField addressField = new JTextField();
         JTextField phoneField = new JTextField();
         
+        // NUEVO: Precargar datos si el usuario está logueado
+        if (profileSystem.isLoggedIn()) {
+            ProfileSystem.User user = profileSystem.getCurrentUser();
+            nameField.setText(user.name);
+            emailField.setText(user.email);
+            addressField.setText(user.address);
+            phoneField.setText(user.phone);
+            
+            // Hacer los campos no editables (opcional)
+            // Si quieres que puedan modificarse, comenta estas líneas
+            nameField.setEditable(false);
+            emailField.setEditable(false);
+            addressField.setEditable(false);
+            phoneField.setEditable(false);
+            
+            // Darles un color diferente para indicar que están precargados
+            Color prefilledColor = new Color(240, 240, 240);
+            nameField.setBackground(prefilledColor);
+            emailField.setBackground(prefilledColor);
+            addressField.setBackground(prefilledColor);
+            phoneField.setBackground(prefilledColor);
+        }
+        
         addFormField(formPanel, "Nombre completo:", nameField);
         addFormField(formPanel, "Email:", emailField);
         addFormField(formPanel, "Dirección de envío:", addressField);
         addFormField(formPanel, "Teléfono:", phoneField);
+        
+        // Mostrar mensaje si está logueado
+        if (profileSystem.isLoggedIn()) {
+            JLabel infoLabel = new JLabel("✓ Datos cargados desde tu perfil");
+            infoLabel.setForeground(new Color(0, 150, 0));
+            infoLabel.setFont(new Font("Arial", Font.ITALIC, 12));
+            formPanel.add(Box.createVerticalStrut(5));
+            formPanel.add(infoLabel);
+        }
         
         formPanel.add(Box.createVerticalStrut(20));
         
@@ -299,57 +331,57 @@ public class SupermarketShoppingApp extends JFrame {
                                  transferRadio.isSelected() ? "Transferencia" :
                                  bizumRadio.isSelected() ? "Bizum" : "PayPal";
 
-			//Ask for additional payment info based on selection
-			String extraInfo = "";
-			
-			if (paymentMethod.equals("Tarjeta")) {
-			JTextField cardNum = new JTextField();
-			JTextField exp = new JTextField();
-			JTextField cvv = new JTextField();
-			
-			Object[] fields = {
-			   "Número de tarjeta:", cardNum,
-			   "Fecha de expiración (MM/YY):", exp,
-			   "CVV:", cvv
-			};
-			
-			int result = JOptionPane.showConfirmDialog(this, fields,
-			       "Datos de Tarjeta", JOptionPane.OK_CANCEL_OPTION);
-			
-			if (result != JOptionPane.OK_OPTION) return;
-			
-			extraInfo = "Tarjeta terminada en " +
-			           cardNum.getText().substring(cardNum.getText().length() - 4);
-			}
-			
-			else if (paymentMethod.equals("Transferencia")) {
-			String iban = JOptionPane.showInputDialog(this,
-			       "Introduce tu número de cuenta / IBAN:");
-			
-			if (iban == null || iban.isEmpty()) return;
-			
-			extraInfo = "IBAN: " + iban;
-			}
-			
-			else if (paymentMethod.equals("Bizum")) {
-			String bizumNum = JOptionPane.showInputDialog(this,
-			       "Número de teléfono para Bizum:");
-			
-			if (bizumNum == null || bizumNum.isEmpty()) return;
-			
-			extraInfo = "Bizum enviado a: " + bizumNum;
-			}
-			
-			else if (paymentMethod.equals("PayPal")) {
-			try {
-			   Desktop.getDesktop().browse(new java.net.URI("https://www.paypal.com"));
-			} catch (Exception ex) {
-			   JOptionPane.showMessageDialog(this, "No se pudo abrir PayPal",
-			           "Error", JOptionPane.ERROR_MESSAGE);
-			   return;
-			}
-			extraInfo = "Pago vía PayPal";
-			}
+            // Ask for additional payment info based on selection
+            String extraInfo = "";
+            
+            if (paymentMethod.equals("Tarjeta")) {
+                JTextField cardNum = new JTextField();
+                JTextField exp = new JTextField();
+                JTextField cvv = new JTextField();
+                
+                Object[] fields = {
+                   "Número de tarjeta:", cardNum,
+                   "Fecha de expiración (MM/YY):", exp,
+                   "CVV:", cvv
+                };
+                
+                int result = JOptionPane.showConfirmDialog(this, fields,
+                       "Datos de Tarjeta", JOptionPane.OK_CANCEL_OPTION);
+                
+                if (result != JOptionPane.OK_OPTION) return;
+                
+                extraInfo = "Tarjeta terminada en " +
+                           cardNum.getText().substring(cardNum.getText().length() - 4);
+            }
+            
+            else if (paymentMethod.equals("Transferencia")) {
+                String iban = JOptionPane.showInputDialog(this,
+                       "Introduce tu número de cuenta / IBAN:");
+                
+                if (iban == null || iban.isEmpty()) return;
+                
+                extraInfo = "IBAN: " + iban;
+            }
+            
+            else if (paymentMethod.equals("Bizum")) {
+                String bizumNum = JOptionPane.showInputDialog(this,
+                       "Número de teléfono para Bizum:");
+                
+                if (bizumNum == null || bizumNum.isEmpty()) return;
+                
+                extraInfo = "Bizum enviado a: " + bizumNum;
+            }
+            
+            else if (paymentMethod.equals("PayPal")) {
+                try {
+                   Desktop.getDesktop().browse(new java.net.URI("https://www.paypal.com"));
+                } catch (Exception ex) {
+                   JOptionPane.showMessageDialog(this, "No se pudo abrir PayPal",
+                           "Error", JOptionPane.ERROR_MESSAGE);
+                   return;
+                }
+                extraInfo = "Pago vía PayPal";
+            }
             
             completePurchase(email, paymentMethod, total);
         });
