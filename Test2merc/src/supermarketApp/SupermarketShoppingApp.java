@@ -103,11 +103,11 @@ public class SupermarketShoppingApp extends JFrame {
         centerPanel.add(searchField);
         centerPanel.add(searchButton);
         
-     // Panel derecho: Perfil y Carrito
+        // Panel derecho: Perfil y Carrito
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
         rightPanel.setBackground(new Color(0, 150, 0));
 
-        // Botón de perfil
+        // Botón de perfil - CORREGIDO
         JButton profileButton = new JButton("👤 Perfil");
         profileButton.setBackground(Color.WHITE);
         profileButton.setFocusPainted(false);
@@ -116,12 +116,13 @@ public class SupermarketShoppingApp extends JFrame {
                 mainPanel.remove(contentPanel);
             }
             contentPanel = new JPanel(new BorderLayout());
+            shoppingCart.setContentPanel(contentPanel);  // AÑADIDO: Actualizar referencia
             mainPanel.add(contentPanel, BorderLayout.CENTER);
-            contentPanel = profileSystem.showProfileScreen(contentPanel, mainPanel);
+            profileSystem.showProfileScreen(contentPanel, mainPanel);
         });
         rightPanel.add(profileButton);
 
-     // Botón de carrito con contador integrado
+        // Botón de carrito con contador integrado
         cartCountLabel.setForeground(Color.BLACK);
         cartCountLabel.setFont(new Font("Arial", Font.BOLD, 12));
 
@@ -136,7 +137,10 @@ public class SupermarketShoppingApp extends JFrame {
         cartButton.setBackground(Color.WHITE);
         cartButton.setFocusPainted(false);
         cartButton.setBorderPainted(true);
-        cartButton.addActionListener(e -> contentPanel = shoppingCart.showCart(cart));
+        cartButton.addActionListener(e -> {
+            contentPanel = shoppingCart.showCart(cart);
+            shoppingCart.setContentPanel(contentPanel);  // AÑADIDO: Actualizar referencia
+        });
 
         rightPanel.add(cartButton);
 
@@ -156,7 +160,7 @@ public class SupermarketShoppingApp extends JFrame {
         }
         
         contentPanel = new JPanel(new BorderLayout());
-        shoppingCart.setContentPanel(contentPanel);
+        shoppingCart.setContentPanel(contentPanel);  // AÑADIDO: Actualizar referencia
         contentPanel.setBackground(Color.WHITE);
         contentPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
         
@@ -217,6 +221,7 @@ public class SupermarketShoppingApp extends JFrame {
         }
         
         contentPanel = new JPanel(new BorderLayout());
+        shoppingCart.setContentPanel(contentPanel);  // AÑADIDO: Actualizar referencia
         contentPanel.setBackground(Color.WHITE);
         contentPanel.setBorder(new EmptyBorder(20, 50, 20, 50));
         
@@ -234,7 +239,7 @@ public class SupermarketShoppingApp extends JFrame {
         JTextField addressField = new JTextField();
         JTextField phoneField = new JTextField();
         
-        // NUEVO: Precargar datos si el usuario está logueado
+        // Precargar datos si el usuario está logueado
         if (profileSystem.isLoggedIn()) {
             ProfileSystem.User user = profileSystem.getCurrentUser();
             nameField.setText(user.name);
@@ -243,11 +248,10 @@ public class SupermarketShoppingApp extends JFrame {
             phoneField.setText(user.phone);
             
             // Hacer los campos no editables (opcional)
-            // Si quieres que puedan modificarse, comenta estas líneas
-            /*nameField.setEditable(false);
+            nameField.setEditable(false);
             emailField.setEditable(false);
             addressField.setEditable(false);
-            phoneField.setEditable(false); */
+            phoneField.setEditable(false);
             
             // Darles un color diferente para indicar que están precargados
             Color prefilledColor = new Color(240, 240, 240);
@@ -350,8 +354,10 @@ public class SupermarketShoppingApp extends JFrame {
                 
                 if (result != JOptionPane.OK_OPTION) return;
                 
-                extraInfo = "Tarjeta terminada en " +
-                           cardNum.getText().substring(cardNum.getText().length() - 4);
+                if (cardNum.getText().length() >= 4) {
+                    extraInfo = "Tarjeta terminada en " +
+                               cardNum.getText().substring(cardNum.getText().length() - 4);
+                }
             }
             
             else if (paymentMethod.equals("Transferencia")) {
