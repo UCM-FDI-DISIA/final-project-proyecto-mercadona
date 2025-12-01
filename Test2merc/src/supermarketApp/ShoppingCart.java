@@ -69,6 +69,7 @@ public class ShoppingCart{
     }
     
     public JPanel showCart(Map<Product, Integer> cart) {
+        // IMPORTANTE: Limpiar el contentPanel antes de crear uno nuevo
         if (contentPanel != null) {
             mainPanel.remove(contentPanel);
         }
@@ -198,5 +199,5 @@ public class ShoppingCart{
         mainPanel.repaint();
         
         return contentPanel;
-    }
-}
+    } 
+   }

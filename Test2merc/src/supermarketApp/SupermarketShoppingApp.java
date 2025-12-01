@@ -216,12 +216,14 @@ public class SupermarketShoppingApp extends JFrame {
     }
     
     public void showCheckout(double total) {
+        // IMPORTANTE: Remover el contentPanel actual del mainPanel primero
         if (contentPanel != null) {
             mainPanel.remove(contentPanel);
         }
         
+        // Crear un nuevo contentPanel
         contentPanel = new JPanel(new BorderLayout());
-        shoppingCart.setContentPanel(contentPanel);  // AÑADIDO: Actualizar referencia
+        shoppingCart.setContentPanel(contentPanel);
         contentPanel.setBackground(Color.WHITE);
         contentPanel.setBorder(new EmptyBorder(20, 50, 20, 50));
         
@@ -397,6 +399,7 @@ public class SupermarketShoppingApp extends JFrame {
         bottomPanel.add(confirmBtn);
         contentPanel.add(bottomPanel, BorderLayout.SOUTH);
         
+        // IMPORTANTE: Añadir el nuevo panel y refrescar la interfaz
         mainPanel.add(contentPanel, BorderLayout.CENTER);
         mainPanel.revalidate();
         mainPanel.repaint();
