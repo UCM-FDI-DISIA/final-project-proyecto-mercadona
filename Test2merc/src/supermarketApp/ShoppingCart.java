@@ -123,7 +123,7 @@ public class ShoppingCart{
                         cart.remove(p);
                     }
                     updateCartCount(cart);
-                    showCart(cart);
+                    app.goToShoppingCart();
                 });
                 
                 JLabel qtyLabel = new JLabel(" " + quantity + " ");
@@ -133,7 +133,7 @@ public class ShoppingCart{
                     if (quantity < p.stock) {
                         cart.put(p, quantity + 1);
                         updateCartCount(cart);
-                        showCart(cart);
+                        app.goToShoppingCart();
                     } else {
                        app.noMoreStock();
                     }
@@ -143,7 +143,7 @@ public class ShoppingCart{
                 removeBtn.addActionListener(e -> {
                     cart.remove(p);
                     updateCartCount(cart);
-                    showCart(cart);
+                    app.goToShoppingCart();
                 });
                 
                 controlPanel.add(decreaseBtn);

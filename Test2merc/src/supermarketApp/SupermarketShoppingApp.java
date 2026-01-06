@@ -101,6 +101,7 @@ public class SupermarketShoppingApp extends JFrame {
         searchButton.addActionListener(e -> products.searchProducts(allProducts));
         centerPanel.add(new JLabel("Buscar: "));
         centerPanel.add(searchField);
+        products.setSearchfield(searchField);
         centerPanel.add(searchButton);
         
         // Panel derecho: Perfil y Carrito
@@ -154,6 +155,10 @@ public class SupermarketShoppingApp extends JFrame {
         mainPanel.add(topBar, BorderLayout.NORTH);
     }
     
+    public void goToShoppingCart() {
+    	contentPanel = shoppingCart.showCart(cart);
+        shoppingCart.setContentPanel(contentPanel);
+    }
     private void buildHomeContent() {
         if (contentPanel != null) {
             mainPanel.remove(contentPanel);
@@ -194,7 +199,7 @@ public class SupermarketShoppingApp extends JFrame {
         mainPanel.repaint();
     }
     
-    private void applyFilters() {
+    public void applyFilters() {
         String supermarket = (String) supermarketFilter.getSelectedItem();
         String brand = (String) brandFilter.getSelectedItem();
         String category = (String) categoryFilter.getSelectedItem();
